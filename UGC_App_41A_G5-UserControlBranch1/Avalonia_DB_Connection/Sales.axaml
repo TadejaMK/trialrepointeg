@@ -1,0 +1,531 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="1024"
+             d:DesignHeight="768"
+             x:Class="Avalonia_DB_Connection.Sales"
+             x:CompileBindings="False">
+
+    <UserControl.Styles>
+
+    
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#071D14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#20FF3A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Background" Value="#071D14"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#071D14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#20FF3A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#20FF3A"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="#45FF5A"/>
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid Background="#020603">
+
+        
+        <Grid Margin="20"
+              RowDefinitions="Auto,Auto,Auto,*">
+
+           
+
+            <Border Grid.Row="0"
+                    Background="#073B20"
+                    BorderBrush="#20FF3A"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="20"
+                    Margin="0,0,0,14">
+
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <StackPanel>
+                        <TextBlock Text="SALES"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
+
+                        <TextBlock Text="Current sales records"
+                                   FontSize="13"
+                                   Foreground="#B9FFC4"
+                                   Margin="0,4,0,0"/>
+
+                        <TextBlock x:Name="ResultCountText"
+                                   Text=""
+                                   FontSize="12"
+                                   Foreground="#20FF3A"
+                                   Margin="0,8,0,0"/>
+
+                        <TextBlock x:Name="StatusText"
+                                   Text=""
+                                   FontSize="12"
+                                   Foreground="#20FF3A"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <Button x:Name="RefreshButton"
+                            Grid.Column="1"
+                            Content="Refresh"
+                            Background="#20FF3A"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            Padding="22,10"
+                            VerticalAlignment="Center"
+                            Click="RefreshButton_Click"/>
+
+                </Grid>
+            </Border>
+
+
+        
+
+            <Border Grid.Row="1"
+                    Background="#06351D"
+                    BorderBrush="#20FF3A"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Padding="18"
+                    Margin="0,0,0,14">
+
+                <StackPanel Spacing="14">
+
+                 
+                    <Grid ColumnDefinitions="Auto,160,140,Auto,120,*"
+                          ColumnSpacing="10">
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Sort by:"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+
+                        <ComboBox x:Name="SortFieldBox"
+                                  Grid.Column="1"
+                                  Width="160"
+                                  SelectedIndex="3">
+
+                            <ComboBoxItem Content="Product Name"/>
+                            <ComboBoxItem Content="Quantity"/>
+                            <ComboBoxItem Content="Price"/>
+                            <ComboBoxItem Content="Date Sold"/>
+
+                        </ComboBox>
+
+                        <ComboBox x:Name="SortDirectionBox"
+                                  Grid.Column="2"
+                                  Width="140"
+                                  SelectedIndex="1">
+
+                            <ComboBoxItem Content="Ascending"/>
+                            <ComboBoxItem Content="Descending"/>
+
+                        </ComboBox>
+
+                        <TextBlock Grid.Column="3"
+                                   Text="Status:"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Margin="15,0,0,0"/>
+
+                        <ComboBox x:Name="StatusFilterBox"
+                                  Grid.Column="4"
+                                  Width="120"
+                                  SelectedIndex="0">
+
+                            <ComboBoxItem Content="All"/>
+                            <ComboBoxItem Content="Active"/>
+                            <ComboBoxItem Content="Edited"/>
+                            <ComboBoxItem Content="VOIDED"/>
+
+                        </ComboBox>
+
+                    </Grid>
+
+
+                   
+                    <StackPanel x:Name="SearchPanel"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                IsVisible="False">
+
+                        <TextBlock Text="Search Product:"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBox x:Name="SearchBox"
+                                 Width="260"
+                                 Watermark="Type a product name"/>
+
+                        <Button Content="Clear"
+                                Padding="18,8"
+                                Click="SearchClearButton_Click"/>
+
+                    </StackPanel>
+
+
+              
+                    <StackPanel x:Name="DatePanel"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                IsVisible="True">
+
+                        <TextBlock Text="From:"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"/>
+
+                        <CalendarDatePicker x:Name="FromDatePicker"
+                                            Width="150"/>
+
+                        <TextBlock Text="To:"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Margin="8,0,0,0"/>
+
+                        <CalendarDatePicker x:Name="ToDatePicker"
+                                            Width="150"/>
+
+                        <Button Content="Apply"
+                                Padding="18,8"
+                                Click="ApplyButton_Click"/>
+
+                        <Button Content="Clear"
+                                Padding="18,8"
+                                Click="DateClearButton_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+
+           
+
+            <Border Grid.Row="2"
+                    Background="#073B20"
+                    BorderBrush="#20FF3A"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="14,12"
+                    Margin="0,0,0,5">
+
+                <Grid ColumnDefinitions="*,80,110,120,120,95,145">
+
+                    <TextBlock Grid.Column="0"
+                               Text="PRODUCT NAME"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="1"
+                               Text="QUANTITY"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="2"
+                               Text="PRICE"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="3"
+                               Text="TYPE"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="4"
+                               Text="DATE SOLD"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="5"
+                               Text="STATUS"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock Grid.Column="6"
+                               Text="ACTION"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                </Grid>
+            </Border>
+
+
+        
+
+            <Border Grid.Row="3"
+                    Background="#031A0D"
+                    BorderBrush="#146B2A"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="8"
+                    Margin="0,0,0,0">
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <StackPanel>
+
+                        <ItemsControl x:Name="SalesList">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Border Background="#062C18"
+                                            BorderBrush="#146B2A"
+                                            BorderThickness="0,0,0,1"
+                                            Padding="10,9">
+
+                                        <Grid ColumnDefinitions="*,80,110,120,120,95,145">
+
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding ProductName}"
+                                                       Foreground="{Binding TextBrush}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding QuantityText}"
+                                                       Foreground="{Binding TextBrush}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding PriceText}"
+                                                       Foreground="{Binding TextBrush}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="3"
+                                                       Text="{Binding TypeText}"
+                                                       Foreground="{Binding TextBrush}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="4"
+                                                       Text="{Binding DateText}"
+                                                       Foreground="{Binding TextBrush}"
+                                                       VerticalAlignment="Center"/>
+
+                                            <TextBlock Grid.Column="5"
+                                                       Text="{Binding StatusLabel}"
+                                                       Foreground="{Binding StatusBrush}"
+                                                       FontWeight="SemiBold"
+                                                       VerticalAlignment="Center"/>
+
+
+                                            <!-- Actions -->
+                                            <StackPanel Grid.Column="6"
+                                                        Orientation="Horizontal"
+                                                        Spacing="7"
+                                                        IsVisible="{Binding CanAct}">
+
+                                                <Button Content="Edit"
+                                                        Tag="Edit"
+                                                        Background="#20FF3A"
+                                                        Foreground="Black"
+                                                        Padding="11,5"/>
+
+                                                <Button Content="Void"
+                                                        Tag="Void"
+                                                        Background="#FF5555"
+                                                        Foreground="Black"
+                                                        Padding="11,5"/>
+
+                                            </StackPanel>
+
+
+                                         
+                                            <TextBlock Grid.Column="6"
+                                                       Text="-"
+                                                       Foreground="Gray"
+                                                       VerticalAlignment="Center"
+                                                       IsVisible="{Binding IsVoided}"/>
+
+                                        </Grid>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+
+                        <TextBlock x:Name="EmptyText"
+                                   Text="No sales recorded yet."
+                                   Foreground="#B9FFC4"
+                                   FontSize="13"
+                                   Margin="12,20,12,10"
+                                   IsVisible="False"/>
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+            </Border>
+
+        </Grid>
+
+
+     
+
+        <Grid x:Name="EditOverlay"
+              Background="#CC000000"
+              IsVisible="False">
+
+            <Border Background="#06351D"
+                    BorderBrush="#20FF3A"
+                    BorderThickness="2"
+                    CornerRadius="12"
+                    Padding="24"
+                    Width="420"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                <StackPanel Spacing="12">
+
+                    <TextBlock Text="EDIT SALE"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#20FF3A"/>
+
+                    <TextBlock x:Name="EditProductText"
+                               Foreground="White"
+                               TextWrapping="Wrap"/>
+
+                    <TextBlock x:Name="EditCurrentQuantityText"
+                               Foreground="White"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10">
+
+                        <TextBlock Text="New Quantity:"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBox x:Name="EditQuantityBox"
+                                 Width="100"/>
+
+                    </StackPanel>
+
+                    <TextBlock x:Name="EditErrorText"
+                               Text=""
+                               Foreground="#FF5555"
+                               TextWrapping="Wrap"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10"
+                                HorizontalAlignment="Right">
+
+                        <Button Content="Cancel"
+                                Background="#333333"
+                                Foreground="White"
+                                Padding="16,6"
+                                Click="EditCancelButton_Click"/>
+
+                        <Button x:Name="EditSaveButton"
+                                Content="Save Changes"
+                                Background="#20FF3A"
+                                Foreground="Black"
+                                FontWeight="Bold"
+                                Padding="16,6"
+                                Click="EditSaveButton_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+
+        
+       
+        
+
+        <Grid x:Name="VoidOverlay"
+              Background="#CC000000"
+              IsVisible="False">
+
+            <Border Background="#06351D"
+                    BorderBrush="#FF5555"
+                    BorderThickness="2"
+                    CornerRadius="12"
+                    Padding="24"
+                    Width="420"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                <StackPanel Spacing="12">
+
+                    <TextBlock Text="VOID SALE"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#FF5555"/>
+
+                    <TextBlock Text="Are you sure you want to void this sale?"
+                               Foreground="White"
+                               TextWrapping="Wrap"/>
+
+                    <TextBlock x:Name="VoidDetailText"
+                               Foreground="White"
+                               TextWrapping="Wrap"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="10"
+                                HorizontalAlignment="Right">
+
+                        <Button Content="Cancel"
+                                Background="#333333"
+                                Foreground="White"
+                                Padding="16,6"
+                                Click="VoidCancelButton_Click"/>
+
+                        <Button x:Name="VoidConfirmButton"
+                                Content="Void Sale"
+                                Background="#FF5555"
+                                Foreground="Black"
+                                FontWeight="Bold"
+                                Padding="16,6"
+                                Click="VoidConfirmButton_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</UserControl>
+<!-- jarvis jerk it a little -->

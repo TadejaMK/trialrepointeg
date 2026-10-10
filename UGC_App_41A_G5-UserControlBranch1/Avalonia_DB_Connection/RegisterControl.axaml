@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="444" d:DesignHeight="310"
+             Width="444" Height="310" Background="Black"
+             x:Class="Avalonia_DB_Connection.RegisterControl">
+            
+            <UserControl.Styles>
+                
+                <Style Selector = "TextBlock.primary">
+                    <Setter Property="Foreground" Value="#46fa2b" />
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+                
+                <Style Selector="TextBox.notnames">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/> 
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="MaxLength" Value="16"/>
+                    <Setter Property="FontSize" Value="20"/>
+                </Style>
+                
+                <Style Selector="TextBox.names">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/> 
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="MaxLength" Value="50"/>
+                    <Setter Property="FontSize" Value="20"/>
+                </Style>
+                
+                <Style Selector = "Button.primary">
+                    <Setter Property="Background" Value="#46fa2b" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+                
+                <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="#46fa2b" />
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#46fa2b"/>
+                </Style>
+                
+            </UserControl.Styles>
+    
+            <Grid  ColumnSpacing="10" RowSpacing="10" 
+            RowDefinitions="*,0.25*,*,*,*,*,*" ColumnDefinitions="*,*">
+                    <TextBlock 
+                             Classes="primary"  Text="Register"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                               Name="ErrorMsg"
+                               VerticalAlignment="Center" 
+                               TextWrapping="Wrap" Foreground="White"
+                               Text="PROVIDE THE GIVEN INFORMATION BELOW"/>
+                    <TextBox Grid.Row="2" Grid.Column="0" Name="tb_fname"
+                             Classes="names" PlaceholderText="First Name"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Name="tb_lname"
+                             Classes="names" PlaceholderText="Last Name"/>
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                             Name="tb_email"
+                             Classes="names" PlaceholderText="E-mail Address"/>
+                    <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="tb_uname"
+                             Classes="notnames" PlaceholderText="Username"/>
+                    <TextBox Grid.Row="5" Grid.Column="0" Name="tb_pass"
+                             Classes="notnames" PasswordChar="*" PlaceholderText="Password"/>
+                    <TextBox Grid.Row="5" Grid.Column="1"  Name="tb_repass"
+                             Classes="notnames" PasswordChar="*" PlaceholderText="Re-Type Password"/>
+                    <Button Grid.Row="6" Grid.Column="0" 
+                            Click="ConfirmRegistration"
+                             Classes="primary" Content="Confirm"/>
+                    <Button Grid.Row="6" Grid.Column="1" 
+                            Click="Cancel"
+                            Classes="primary" Content="Cancel"/>
+             </Grid>
+</UserControl>

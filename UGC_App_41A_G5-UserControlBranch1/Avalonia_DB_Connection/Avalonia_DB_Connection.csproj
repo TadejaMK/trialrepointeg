@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.1.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="12.1.1"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.1"/>
+        <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="MySqlConnector" Version="2.6.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\img1.jpg" />
+      <AvaloniaResource Include="Assets\img1.jpg" />
+      <None Remove="Assets\logo1.png" />
+      <AvaloniaResource Include="Assets\logo1.png" />
+      <None Remove="Assets\icon1.ico" />
+      <AvaloniaResource Include="Assets\icon1.ico" />
+      <None Remove="Assets\warning.png" />
+      <AvaloniaResource Include="Assets\warning.png" />
+      <None Remove="Assets\question.png" />
+      <AvaloniaResource Include="Assets\question.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Home.axaml.cs">
+        <DependentUpon>Home.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Inventory.axaml.cs">
+        <DependentUpon>Inventory.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="LoginControl.axaml.cs">
+        <DependentUpon>LoginControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="RegisterControl.axaml.cs">
+        <DependentUpon>RegisterControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Reports.axaml.cs">
+        <DependentUpon>Reports.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Sales.axaml.cs">
+        <DependentUpon>Sales.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Users.axaml.cs">
+        <DependentUpon>Users.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,224 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Avalonia_DB_Connection"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+             Background="#062A0A" Foreground="White"
+             x:DataType="local:Inventory"
+             x:Class="Avalonia_DB_Connection.Inventory">
+
+    <UserControl.Styles>
+        
+        <Style Selector="TableViewCell">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="TableViewRow:pointerover">
+            <Setter Property="Background" Value="#14802A"/>
+        </Style>
+        <Style Selector="TableViewRow:pointerover TableViewCell">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="TableViewRow:selected TableViewCell">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+        <Style Selector="TableViewColumnHeader">
+            <Setter Property="Background" Value="#0E5A18"/>
+            <Setter Property="Foreground" Value="#14802A"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            
+            
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        </Style>
+
+        <Style Selector="TableViewColumnHeader /template/ ContentPresenter">
+            <Setter Property="Background" Value="#0A3A10"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="TableViewColumnHeader:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#14802A"/>
+        </Style>
+        
+        <Style Selector="Border.Panel">
+            <Setter Property="Background" Value="#0E5A18"/>
+            <Setter Property="BorderBrush" Value="#2BD43A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="15"/>
+        </Style>
+        
+        <Style Selector="Button.BtnStyle">
+            <Setter Property="Background" Value="#46fa2b"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.BtnStyle:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="#46fa2b"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#46fa2b"/>
+        </Style>
+        
+        <Style Selector="Button.BtnOrange">
+            <Setter Property="Background" Value="#FF8A1F"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.BtnOrange:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="#FF8A1F"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#FF8A1F"/>
+        </Style>
+        
+        <Style Selector="TextBox.TbStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#2BD43A"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style Selector="TextBox.TbStyle:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#46fa2b"/>
+        </Style>
+        <Style Selector="TextBox.TbStyle:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#46fa2b"/>
+        </Style>
+        <Style Selector="TextBox.TbStyle:disabled /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#CFE8D2"/>
+        </Style>
+        
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#0A3A10"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2BD43A"/>
+        </Style>
+        
+        <Style Selector="TextBlock.Header">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="TextBlock.SubHeader">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style Selector="TextBlock.Small">
+            <Setter Property="Foreground" Value="#46fa2b"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        
+        
+    </UserControl.Styles>
+
+    <Grid Margin="20" ColumnSpacing="15" RowSpacing="15"
+          RowDefinitions="Auto,Auto,*"
+          ColumnDefinitions="2*,3*">
+        
+        <Border Classes="Panel" Grid.Row="0" Grid.ColumnSpan="2">
+            <StackPanel Spacing="3">
+                <TextBlock Classes="Header" Text="INVENTORY"/>
+                <TextBlock Classes="SubHeader" FontSize="13" Text="Current inventory records"/>
+                <TextBlock Name="CountText" Classes="Small" Text="Total items: 0"/>
+            </StackPanel>
+        </Border>
+        
+        <Border Classes="Panel" Grid.Row="1" Grid.ColumnSpan="2" Padding="15,12">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <TextBlock Classes="SubHeader" FontWeight="Bold" Text="Sort by:"/>
+                <ComboBox Name="FilterBox" Width="220" SelectedIndex="0" FontSize="15"
+                          SelectionChanged="FilterBox_SelectionChanged">
+                    <ComboBoxItem>Name</ComboBoxItem>
+                    <ComboBoxItem>Quantity</ComboBoxItem>
+                    <ComboBoxItem>Price</ComboBoxItem>
+                    <ComboBoxItem>Types</ComboBoxItem>
+                    <ComboBoxItem>Date</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+        
+        <Border Classes="Panel" Grid.Row="2" Grid.Column="0">
+            <Grid ColumnSpacing="10" RowSpacing="10"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
+                  ColumnDefinitions="*,1.65*">
+
+                <TextBlock Name="FormTitle" Classes="SubHeader" FontSize="18" FontWeight="Bold"
+                           Foreground="#46fa2b" Grid.ColumnSpan="2"
+                           Text="Edit Data Here"/>
+
+                <TextBlock Classes="SubHeader" Grid.Row="1" Text="Name: "/>
+                <TextBox Name="Tb_Name" Classes="TbStyle" Grid.Row="1" Grid.Column="1"
+                         MaxLength="50" IsEnabled="False"/>
+
+                <TextBlock Classes="SubHeader" Grid.Row="2" Text="Quantity: "/>
+                <TextBox Name="Tb_Quantity" Classes="TbStyle" Grid.Row="2" Grid.Column="1"
+                         MaxLength="6" IsEnabled="False"/>
+
+                <TextBlock Classes="SubHeader" Grid.Row="3" Text="Price: "/>
+                <TextBox Name="Tb_Price" Classes="TbStyle" Grid.Row="3" Grid.Column="1"
+                         MaxLength="8" IsEnabled="False"/>
+
+                <TextBlock Classes="SubHeader" Grid.Row="4" Text="Types: "/>
+                <ComboBox Name="Cb_Types" Grid.Row="4" Grid.Column="1"
+                          HorizontalAlignment="Stretch" FontSize="16" IsEnabled="False">
+                    <ComboBoxItem>games</ComboBoxItem>
+                    <ComboBoxItem>accessories</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Classes="SubHeader" Grid.Row="5" Text="Date: "/>
+                <TextBox Name="Tb_Date" Classes="TbStyle" Grid.Row="5" Grid.Column="1"
+                         Watermark="yyyy-MM-dd" MaxLength="10" IsEnabled="False"/>
+
+                <Grid Grid.Row="6" Grid.ColumnSpan="2" ColumnSpacing="6"
+                      ColumnDefinitions="*,*,*" Height="50" VerticalAlignment="Top"
+                      Margin="0,8,0,0">
+                    <Button Classes="BtnStyle" Grid.Column="0" Content="Add"
+                            Name="BtnAdd" Click="Add_Click"/>
+                    <Button Classes="BtnStyle" Grid.Column="1" Content="Update"
+                            Name="BtnConfirm" IsEnabled="False" Click="Update_Click"/>
+                    <Button Classes="BtnOrange" Grid.Column="2" Content="Cancel"
+                            Name="BtnCancel" IsEnabled="False" Click="Cancel_Click"/>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <Border Classes="Panel" Grid.Row="2" Grid.Column="1" Padding="8">
+            <TableView Name="InventoryTable"
+                       Background="Transparent" Foreground="White"
+                       ItemsSource="{Binding InventoryData}"
+                       SelectionChanged="InventoryTable_SelectionChanged"
+                       ScrollViewer.AllowAutoHide="False"
+                       ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <TableView.Columns>
+                    <TableViewColumn Header="NAME" Width="2*"   Binding="{Binding name}"/>
+                    <TableViewColumn Header="QUANTITY"     Width="1.5*"   Binding="{Binding quantity}"/>
+                    <TableViewColumn Header="PRICE"        Width="1*"   Binding="{Binding price}"/>
+                    <TableViewColumn Header="TYPE"         Width="1.5*" Binding="{Binding types}"/>
+                    <TableViewColumn Header="DATE"         Width="1.5*" Binding="{Binding date}"/>
+                </TableView.Columns>
+            </TableView>
+        </Border>
+
+    </Grid>
+</UserControl>

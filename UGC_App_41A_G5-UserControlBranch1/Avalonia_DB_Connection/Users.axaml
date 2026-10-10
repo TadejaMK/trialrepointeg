@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avaloniaDbConnection="clr-namespace:Avalonia_DB_Connection"
+             xmlns:local="clr-namespace:Avalonia_DB_Connection"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="768"
+             Width="1024" Height="768" HorizontalAlignment="Left" VerticalAlignment="Top"
+             Background="Black" Foreground="White"
+             x:DataType="local:Users"
+             x:Class="Avalonia_DB_Connection.Users">
+    
+    <!-- Comments regarding our code here
+        xmlns:local is used so we can set Avalonia_DB_Connection as a local source
+        That way x:DataType can work
+        x:DataType is where our data bindings will come from which in this context comes from Users.axaml.cs (this)
+        This way we can use {Binding pathname} on our TableView
+    -->
+    <UserControl.Styles>
+                <Style Selector="Button.BtnStyle">
+                    <Setter Property="Background" Value="#46fa2b"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+                
+                <Style Selector="Button.BtnStyle:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="#46fa2b"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#46fa2b"/>
+                </Style>
+                
+                <Style Selector="TextBox.TbStyle">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+                
+              
+                
+                <Style Selector="TextBlock.Header">
+                    <Setter Property="Foreground" Value="#46fa2b"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="26"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+                <Style Selector="TextBlock.SubHeader">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </UserControl.Styles>
+            
+    
+    
+    
+            <Grid   ColumnSpacing="15" RowSpacing="5" Margin="20" 
+            RowDefinitions="*,0.25*,*,*,*,*,*,*,*,*" ColumnDefinitions="20*,20*,30*,30*">
+                <Image 
+                    Source="Assets/logo1.png" HorizontalAlignment="Left"/>
+                <TextBlock Classes="Header" Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="3"
+                           Text="User Management"/>
+                <TextBlock Classes="SubHeader" Name="SubHeader" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                           Text="Click any data on the table below to UPDATE it. Proceed to edit the data on left side of the table."/>
+                
+                <Grid Grid.Row="3" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="2" ColumnSpacing="10" RowSpacing="5" 
+                      RowDefinitions="*,*,*,*,*,*,*,*" ColumnDefinitions="*,1.65*">
+                        <TextBlock Classes="Header" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" Text="Edit Data Here"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="1" Grid.Column="0" Text="First Name: "/>
+                        
+                        <TextBox Name="Tb_ID" Grid.Row="0" Grid.Column="0" IsVisible="False"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.id}"/>
+                        
+                        <TextBox Name="Tb_Fname" Classes="TbStyle" Grid.Row="1" Grid.Column="1" MaxLength="50" IsEnabled="false"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.firstname}"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="2" Grid.Column="0" Text="Last Name: "/>
+                        <TextBox Name="Tb_Lname" Classes="TbStyle" Grid.Row="2" Grid.Column="1" MaxLength="50" IsEnabled="false"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.lastname}"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="3" Grid.Column="0" Text="E-mail Address: "/>
+                        <TextBox Name="Tb_Email" Classes="TbStyle" Grid.Row="3" Grid.Column="1" MaxLength="50" IsEnabled="false"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.email}"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="4" Grid.Column="0" Text="Username: "/>
+                        <TextBox Name="Tb_Username" Classes="TbStyle" Grid.Row="4" Grid.Column="1" MaxLength="16" IsEnabled="false"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.username}"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="5" Grid.Column="0" Text="Password: "/>
+                        <TextBox Name="Tb_Password" Classes="TbStyle" Grid.Row="5" Grid.Column="1" PasswordChar="*" MaxLength="16" IsEnabled="false"
+                                 Text="{ReflectionBinding #UserTable.SelectedItem.password}"/>
+                        <TextBlock Classes="SubHeader" Grid.Row="6" Grid.Column="0" Text="Re-Type Password: "/>
+                        <TextBox Name="Tb_Retype" Classes="TbStyle" Grid.Row="6" Grid.Column="1" PasswordChar="*" MaxLength="16" IsEnabled="false"/>
+                        
+                        <Grid Grid.Row="7" Grid.Column="0" ColumnSpacing="5" 
+                              RowDefinitions="*" ColumnDefinitions="*,*" Grid.ColumnSpan="2">
+                            <Button Classes="BtnStyle" Grid.Column="0" Content="Update"
+                                    Click="Update" Name="BtnConfirm" IsEnabled="False"/>
+                            <Button Classes="BtnStyle"  Grid.Column="1" Content="Cancel"
+                                    Click="Cancel" Name="BtnCancel" IsEnabled="False"/>
+                        </Grid>
+                </Grid>
+                
+                <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" RowDefinitions="*" ColumnDefinitions="25*,75*">
+                    <TextBlock Classes="SubHeader" Grid.Row="0" Grid.Column="0" Text="Filter data by: "/>
+                    <ComboBox Grid.Row="0" Grid.Column="1" PlaceholderText="ID"
+                              VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="16">
+                        <ComboBoxItem>ID</ComboBoxItem> <ComboBoxItem>First Name</ComboBoxItem>
+                        <ComboBoxItem>Last Name</ComboBoxItem> <ComboBoxItem>Username</ComboBoxItem>
+                    </ComboBox>
+                    
+                </Grid>
+                <!-- 
+                    Notice {Binding UserData} if we didn't config our UserControl 
+                    header properly this would just be an error
+                -->                
+                <TableView Grid.Row="3" Grid.Column="2" Grid.RowSpan="7" Grid.ColumnSpan="2"
+                           ItemsSource= "{Binding UserData}" Name="UserTable"
+                           SelectionChanged="UserTable_SelectionChanged"
+                           ScrollViewer.AllowAutoHide="False"
+                           ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <TableView.Columns>
+                        <TableViewColumn Name="id" Header="ID" Width="30" Binding="{Binding id}"/>
+                        <TableViewColumn Name="firstname" Header="First Name" Width="1*" Binding="{Binding firstname}"/>
+                        <TableViewColumn Name="lastname" Header="Last Name" Width="1*" Binding="{Binding lastname}"/>
+                        <TableViewColumn Name="email" Header="E-mail Address" Width="1*" Binding="{Binding email}"/>
+                        <TableViewColumn Name="username" Header="Username" Width="1*" Binding="{Binding username}"/>
+                        <TableViewColumn Name="password" Header="Password" Width="1*" Binding="{Binding password}"/>
+                    </TableView.Columns>
+                </TableView>
+            </Grid>
+</UserControl>

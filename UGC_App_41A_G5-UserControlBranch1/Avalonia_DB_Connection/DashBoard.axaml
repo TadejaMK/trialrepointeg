@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768"
+        Width="1366" Height="768" Background="Black" Foreground="White"
+        WindowStartupLocation="CenterScreen"  Icon="/Assets/icon1.ico"
+        Closing="Window_Closing"
+        x:Class="Avalonia_DB_Connection.DashBoard"
+        Title="Unofficial Game Club Desktop App">
+        <Window.Styles>
+            <Style Selector="Button.SideBar">
+                    <Setter Property="Background" Value="#46fa2b"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="25"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+                
+                <Style Selector="Button.SideBar:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="#46fa2b"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#46fa2b"/>
+                </Style>
+        </Window.Styles>
+        
+        <Grid RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="*,3*">
+                <Grid ColumnDefinitions="2.5*,*" ColumnSpacing="10" HorizontalAlignment="Center">
+                        <TextBlock 
+                                Name="UserName" 
+                                FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                Text="Hello, Username"/>
+                        <HyperlinkButton Grid.Column="1" Click="logout"
+                                         FontSize="22"
+                                         Content="Logout"/>
+                </Grid>
+                <Button Classes="SideBar" Grid.Row="1" Grid.Column="0" Content="Home" Click="GoToHome"/>
+                <Button Classes="SideBar" Grid.Row="2" Grid.Column="0" Content="Inventory" Click="GoToInventory"/>
+                <Button Classes="SideBar" Grid.Row="3" Grid.Column="0" Content="Sales" Click="GoToSales"/>
+                <Button Classes="SideBar" Grid.Row="4" Grid.Column="0" Content="Users" Click="GoToUsers"/>
+                <Button Classes="SideBar" Grid.Row="5" Grid.Column="0" Content="Reports" Click="GoToReports"/>
+                
+                <Panel Grid.Column="1" Grid.RowSpan="6" 
+                       Name="container"/>
+        </Grid>
+        
+</Window>

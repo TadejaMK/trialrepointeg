@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="350"
+        Width="700" Height="350" WindowStartupLocation="CenterScreen" WindowDecorations="None"
+        Background="Black" Foreground="White" Icon="/Assets/icon1.ico"
+        x:Class="Avalonia_DB_Connection.MainWindow"
+        Title="UGC Login">
+        <Window.Styles>
+                <Style Selector="TextBox.primary">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/> 
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="MaxLength" Value="16"/>
+                        <Setter Property="FontSize" Value="20"/>
+                </Style>
+                
+                <Style Selector="Button.primary">
+                        <Setter Property="Background" Value="#46fa2b" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="FontSize" Value="25" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                </Style>
+                
+                <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+                        <Setter Property="Background" Value="Black" />
+                        <Setter Property="Foreground" Value="#46fa2b" />
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#46fa2b"/>
+                </Style>
+                
+                <Style Selector="HyperlinkButton.primary">
+                        <Setter Property="HorizontalAlignment" Value="Center"/> 
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Foreground" Value="#46fa2b" />
+                </Style>
+                
+                <Style Selector="HyperlinkButton.primary:pointerover /template/ ContentPresenter">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="Black" />
+                </Style>
+                
+        </Window.Styles>
+        
+        
+        <Grid   Margin="15 20 15 20"
+                ColumnSpacing="10" RowSpacing="10"
+                Grid.ColumnDefinitions="*,*,*" Grid.RowDefinitions="*,*,*,*,*,*">
+                <Border Grid.RowSpan="6" ClipToBounds="True" CornerRadius="5">
+                         <Image Source="/Assets/img1.jpg" Stretch="Fill" 
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </Border>
+                <Panel 
+                        Name="container"
+                        Grid.RowSpan="6" Grid.Column="1" Grid.ColumnSpan="2"/>
+        </Grid>
+</Window>

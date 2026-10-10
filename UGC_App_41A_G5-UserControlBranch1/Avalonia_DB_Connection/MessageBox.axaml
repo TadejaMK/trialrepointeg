@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="170"
+        Width="350" Height="170" WindowStartupLocation="CenterOwner"
+        Background="Black" Foreground="White" Icon="/Assets/icon1.ico"
+        CanResize="False" ShowInTaskbar="False"
+        x:Class="Avalonia_DB_Connection.MessageBox"
+        Title="Message Box Title Here">
+    
+    <Window.Styles>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#46fa2b" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+                
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="#46fa2b" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#46fa2b"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid RowDefinitions="*,*" ColumnDefinitions="*,4*" Margin="20">
+                <Image
+                    Name="Img" Source="/Assets/img1.jpg" Stretch="Fill" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    />
+            
+                <TextBlock Grid.Column="1" 
+                   Text="Message shows here"
+                   Name="Message"  TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            Spacing="10" 
+                            Margin="0,15,0,0"><Button Classes="primary" Click="OKButton_Click" Name="OkButton" Content="OK" Width="75" HorizontalContentAlignment="Center"/>
+                <Button Classes="primary" Click="CancelButton_Click" Name="CancelButton" Content="Cancel" Width="75" HorizontalContentAlignment="Center"/>
+                </StackPanel>
+        </Grid>
+</Window>
